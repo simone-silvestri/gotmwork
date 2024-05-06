@@ -4,6 +4,7 @@ Qing Li, 20171213
 """
 
 import matplotlib.pyplot as plt
+import nc_time_axis
 import numpy as np
 import argparse
 import sys
@@ -48,6 +49,8 @@ def main():
     # read data
     infile = Dataset(args.fname, 'r')
     dttime, tidx_start, tidx_end = ncread_dim_time(infile, args.date_start, args.date_end)
+
+    print(dttime[1:])
 
     # do the same for input file 2
     if l_f2:
