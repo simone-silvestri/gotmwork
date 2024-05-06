@@ -42,8 +42,8 @@ dateend="20121201"
 # turbmethod="KPPLT-EFACTOR"
 # turbmethod="KPPLT-ENTR"
 # turbmethod="KPPLT-RWHGK"
-turbmethod="KPP-CVMix"
-# turbmethod="SMCLT"
+# turbmethod="KPP-CVMix"
+turbmethod="SMCLT"
 # turbmethod="SMC"
 
 # output file name
