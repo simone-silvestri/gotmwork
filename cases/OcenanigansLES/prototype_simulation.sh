@@ -21,7 +21,7 @@ curdir=$(pwd)
 #######################################################################
 
 # name of the dataset
-title="CASENAME_HOURSRUNhours_model_TURBULENCEMETHOD"
+title="CASENAME_HOURSRUNhours_model_TURBULENCEMETHOD_tstepTIMESTEP"
 
 # set levels, grid zooming at surface
 nlev=128 # Maybe less levels?
@@ -33,12 +33,14 @@ ddl=0
 # set Heat Flux
 # set Wind Stress
 Latitude=LATITUDE   # f = 1e-4
+
+# Wind stress is specified in N/m2 in 
 taux=$(echo 'print $((WINDSTRESS * 1027))' | zsh)  # 5.6e-4 * 1027 (ref density)
 tauy=0.00
 heatflux=-$(echo 'print $((BUOYANCYFLUX / 2e-4 / 9.80655 * 1027 * 3985.0))' | zsh)
 
 # run parameters
-dt=20 #TIMESTEP
+dt=TIMESTEP
 nsave=1 # save data every 1 timestep
 
 # starting and ending date - in the format of YYYYMMDD

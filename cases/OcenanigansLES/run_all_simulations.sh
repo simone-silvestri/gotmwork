@@ -1,5 +1,8 @@
 # Running all the LES configurations
 
+# Try different time steps
+declare -a timesteps=("1" "20" "60" "120" "300")
+
 # All turbulence methods possible?
 declare -a turbmethod=("KPPLT-EFACTOR" "KPPLT-ENTR" "KPPLT-RWHGK" "EPBL" "EPBL-LT" "KPP-CVMix" "SMCLT" "SMC")
 
@@ -35,12 +38,15 @@ hours=72
 declare -a wind72=("0"      "1.8e-4" "2.9e-4" "3.4e-4" "4.1e-4" "1.1e-4")
 declare -a flux72=("8.7e-8" "7.5e-8" "6.0e-8" "3.8e-8" "0"      "0")
 
+for t in "${!timesteps[@]}"; do
+
 # Looping over case 1 through 6
 for i in "${!wind6[@]}"; do
 
 # Looping ovet all the turbulence methods
 for j in ${!turbmethod[@]}; do
-	
+
+timestep=${timesteps[t]}	
 turb=${turbmethod[j]}
 lat=${latitude[i]}
 case=${casename[i]}
@@ -50,6 +56,7 @@ wind=${wind6[i]}
 flux=${flux6[i]}
 
 cp prototype_simulation.sh simulation${wind}${flux}.sh
+sed -i "s/TIMESTEP/$timestep/g" simulation${wind}${flux}.sh
 sed -i "s/CASENAME/$case/g" simulation${wind}${flux}.sh
 sed -i "s/LATITUDE/$lat/g" simulation${wind}${flux}.sh
 sed -i "s/HOURSRUN/6/g" simulation${wind}${flux}.sh
@@ -66,6 +73,7 @@ wind=${wind12[i]}
 flux=${flux12[i]}
 
 cp prototype_simulation.sh simulation${wind}${flux}.sh
+sed -i "s/TIMESTEP/$timestep/g" simulation${wind}${flux}.sh
 sed -i "s/CASENAME/$case/g" simulation${wind}${flux}.sh
 sed -i "s/LATITUDE/$lat/g" simulation${wind}${flux}.sh
 sed -i "s/HOURSRUN/12/g" simulation${wind}${flux}.sh
@@ -82,6 +90,7 @@ wind=${wind18[i]}
 flux=${flux18[i]}
 
 cp prototype_simulation.sh simulation${wind}${flux}.sh
+sed -i "s/TIMESTEP/$timestep/g" simulation${wind}${flux}.sh
 sed -i "s/CASENAME/$case/g" simulation${wind}${flux}.sh
 sed -i "s/LATITUDE/$lat/g" simulation${wind}${flux}.sh
 sed -i "s/HOURSRUN/18/g" simulation${wind}${flux}.sh
@@ -98,6 +107,7 @@ wind=${wind24[i]}
 flux=${flux24[i]}
 
 cp prototype_simulation.sh simulation${wind}${flux}.sh
+sed -i "s/TIMESTEP/$timestep/g" simulation${wind}${flux}.sh
 sed -i "s/CASENAME/$case/g" simulation${wind}${flux}.sh
 sed -i "s/LATITUDE/$lat/g" simulation${wind}${flux}.sh
 sed -i "s/HOURSRUN/24/g" simulation${wind}${flux}.sh
@@ -114,6 +124,7 @@ wind=${wind48[i]}
 flux=${flux48[i]}
 
 cp prototype_simulation.sh simulation${wind}${flux}.sh
+sed -i "s/TIMESTEP/$timestep/g" simulation${wind}${flux}.sh
 sed -i "s/CASENAME/$case/g" simulation${wind}${flux}.sh
 sed -i "s/LATITUDE/$lat/g" simulation${wind}${flux}.sh
 sed -i "s/HOURSRUN/48/g" simulation${wind}${flux}.sh
@@ -130,6 +141,7 @@ wind=${wind72[i]}
 flux=${flux72[i]}
 
 cp prototype_simulation.sh simulation${wind}${flux}.sh
+sed -i "s/TIMESTEP/$timestep/g" simulation${wind}${flux}.sh
 sed -i "s/CASENAME/$case/g" simulation${wind}${flux}.sh
 sed -i "s/LATITUDE/$lat/g" simulation${wind}${flux}.sh
 sed -i "s/HOURSRUN/72/g" simulation${wind}${flux}.sh
@@ -141,5 +153,6 @@ sed -i "s/TURBULENCEMETHOD/$turb/g" simulation${wind}${flux}.sh
 
 rm simulation${wind}${flux}.sh
 
+done
 done
 done
